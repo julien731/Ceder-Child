@@ -106,8 +106,12 @@
 			echo ceder_excerpt($excerpt_characters = 25); ?>
 			<a href="<?php echo get_permalink(); ?>" class="fw-btn-main"><?php _e( 'Read more', 'ceder' )?></a>
 		<?php else:
-			the_excerpt();
-			printf( '<a href="%1$s" class="more-link">%2$s</a>', get_permalink( $post->ID ), esc_attr__( 'Read more' ) );
+			if ( is_archive() ) {
+				the_excerpt();
+				printf( '<a href="%1$s" class="more-link">%2$s</a>', get_permalink( $post->ID ), esc_attr__( 'Read more' ) );
+			} else {
+				the_content( __( 'Read more', 'ceder' ) );
+			}
 		endif;
 		wp_link_pages( array(
 			'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'ceder' ) . '</span>',
